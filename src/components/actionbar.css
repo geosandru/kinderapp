@@ -1,0 +1,49 @@
+.action-wrapper {
+  width: 100%;
+  margin-top: 16px;
+}
+
+/* rând unic pentru tot */
+.action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 0;        /* aer sus-jos */
+}
+
+/* butoane */
+.buttons {
+  display: flex;
+  flex-wrap: nowrap;     /* forțăm un rând */
+  gap: 6px;              /* mai mic ca să încapă */
+  align-items: center;
+}
+
+/* link fără subliniere */
+.nav-link {
+  text-decoration: none;
+}
+
+/* stil butoane */
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  background: #ffd93d;
+  border-radius: 16px;
+  border: 2px dashed #ff9f1c;
+  padding: 6px 12px;     /* mai mic */
+  font-size: 13px;      /* mai compact */
+
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.nav-btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 2px 0 #ffb703;
+}

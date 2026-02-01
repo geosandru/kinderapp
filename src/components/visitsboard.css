@@ -1,0 +1,11 @@
+.visits-title {
+  text-align: center;
+  margin: 10px 0;
+  color: #ff8800;
+}
+
+.visits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}

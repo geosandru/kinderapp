@@ -1,0 +1,41 @@
+.visit-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 3px solid #ffd93d;
+  padding: 12px;
+  text-align: center;
+  box-shadow: 0 4px 0 #ffb703;
+}
+
+.visit-card h3 {
+  color: #ff8800;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #eee;
+  border-radius: 10px;
+  margin: 8px 0;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffd93d, #ff8800);
+  transition: width 0.5s;
+}
+
+.visit-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 8px;
+}
+
+.visit-buttons button {
+  background: #ffe066;
+  border-radius: 14px;
+  border: 2px dashed #ffb703;
+  padding: 4px 10px;
+  cursor: pointer;
+}

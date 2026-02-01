@@ -1,0 +1,15 @@
+.app-container {
+  max-width: 1200px;        /* MAI LAT */
+  margin: 40px auto;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px 24px 30px 24px;
+  border: 3px dashed #ffb703;
+}
+
+/* titluri */
+h1, h2, h3 {
+  font-family: "DM Sans", Arial, sans-serif;
+  font-weight: 800;
+  color: #ff8800;
+}

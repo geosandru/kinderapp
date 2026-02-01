@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: #ffe066;
+  border-radius: 20px;
+  padding: 14px 20px;      /* mai mult spațiu */
+  border: 3px dashed #ffb703;
+}
+
+.header h1 {
+  color: #ff8800;
+  font-size: 22px;
+}
+
+.header-date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  padding: 6px 12px;
+  border-radius: 15px;
+}

@@ -1,0 +1,12 @@
+import "./styles/main.css";
+
+function App() {
+  return (
+    <div className="app-container">
+      <h1>KINDERAPP TIME MANAGEMENT</h1>
+      <p>Aplicația a pornit corect.</p>
+    </div>
+  );
+}
+
+export default App;

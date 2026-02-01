@@ -1,0 +1,67 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 235, 180, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-card {
+  background: #fff9db;
+  border: 2px dashed #ffb703;
+  border-radius: 20px;
+  padding: 20px;
+  width: 320px;
+  animation: popModal 0.3s ease;
+}
+
+.modal-card h2 {
+  margin-bottom: 10px;
+  color: #ff8800;
+}
+
+.modal-card input {
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  border: 2px solid #ffd43b;
+  outline: none;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.btn-cancel {
+  background: #ffd43b;
+  border: none;
+  border-radius: 14px;
+  padding: 6px 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-save {
+  background: #51cf66;
+  border: none;
+  border-radius: 14px;
+  padding: 6px 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@keyframes popModal {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

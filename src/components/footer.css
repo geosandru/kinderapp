@@ -1,0 +1,40 @@
+.footer {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 900px;              /* egal cu headerul */
+  max-width: 95%;
+
+  background: #ffe07a;
+  border: 2px dashed #ffa500;
+  border-radius: 16px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  padding: 12px 20px;
+  font-weight: 600;
+  color: #ff7a00;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  z-index: 100;
+}
+
+.footer div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  background: #fff3c4;
+  padding: 6px 12px;
+  border-radius: 12px;
+  border: 1px solid #ffcc66;
+}
+
+/* mic hover subtil */
+.footer div:hover {
+  background: #ffe9a3;
+}

@@ -1,0 +1,23 @@
+body {
+  background: #fffbe6;
+  font-family: "Comic Neue", cursive;
+}
+
+button {
+  background: #ffd93d;
+  border-radius: 20px;
+  border: 3px dashed #ff9f1c;
+  padding: 10px 18px;
+  transition: transform .15s;
+}
+
+button:hover {
+  transform: scale(1.05) rotate(-1deg);
+}
+
+.visit-card {
+  background: #fff;
+  border: 3px solid #fcbf49;
+  border-radius: 20px;
+  padding: 12px;
+}

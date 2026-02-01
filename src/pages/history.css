@@ -1,0 +1,110 @@
+.history-page {
+  margin-top: 20px;
+}
+
+/* HEADER SUS */
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.history-header h2 {
+  color: #ff8800;
+}
+
+/* TABEL */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 2px solid #ffd93d;
+  padding: 6px;
+  text-align: center;
+}
+
+th {
+  background: #ffe066;
+}
+
+/* STATUS */
+button.paid {
+  background: #9ef01a;
+  border-radius: 12px;
+  padding: 4px 10px;
+}
+
+button.unpaid {
+  background: #ff595e;
+  color: white;
+  border-radius: 12px;
+  padding: 4px 10px;
+}
+
+.history-actions {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+/* BAZĂ */
+.history-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 20px;
+  border-radius: 999px;
+
+  font-weight: 700;
+  font-size: 14px;
+
+  cursor: pointer;
+  border: none;
+
+  transition: all 0.15s ease;
+}
+
+/* DESCHIDE ZI */
+.history-open {
+  background: linear-gradient(135deg, #ffb703, #ffd166);
+  color: #4e342e;
+
+  box-shadow: 0 4px 0 #f77f00;
+}
+
+.history-open:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 0 #f77f00;
+}
+
+.history-open:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #f77f00;
+}
+
+/* EXPORT */
+.history-export {
+  background: linear-gradient(135deg, #b7e4c7, #95d5b2);
+  color: #1b4332;
+
+  box-shadow: 0 4px 0 #40916c;
+}
+
+.history-export:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 0 #40916c;
+}
+
+.history-export:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #40916c;
+}
+
+/* ICON */
+.history-btn svg {
+  font-size: 16px;
+}

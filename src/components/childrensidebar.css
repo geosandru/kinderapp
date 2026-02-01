@@ -1,0 +1,105 @@
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 900;
+}
+
+.sidebar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: #fffbe6;
+  border-right: 3px dashed #ffb703;
+  padding: 14px;
+  overflow-y: auto;
+}
+
+/* HEADER */
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.sidebar-header h2 {
+  color: #ff8800;
+}
+
+/* ZONA BUTOANE SUS DREAPTA */
+.sidebar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* BUTON EXPORT */
+.btn-export {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #9ef01a;
+  border-radius: 14px;
+  border: 2px dashed #70e000;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* BUTON CLOSE */
+.btn-close {
+  background: #ff595e;
+  color: white;
+  border-radius: 50%;
+  border: none;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* TABEL */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 2px solid #ffd93d;
+  padding: 6px;
+  text-align: center;
+}
+
+th {
+  background: #ffe066;
+}
+
+/* BUTOANE ICON */
+.icon-btn {
+  background: #ffe066;
+  border-radius: 10px;
+  border: 2px dashed #ffb703;
+  margin: 0 2px;
+  cursor: pointer;
+}
+
+.sidebar-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 0 10px 0;
+  padding: 6px 10px;
+  border-radius: 14px;
+  background: #fff3cd;
+  border: 2px dashed #ffb703;
+}
+
+.sidebar-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: 14px;
+}

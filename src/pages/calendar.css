@@ -1,0 +1,22 @@
+.calendar-page {
+  margin-top: 20px;
+}
+
+.calendar-form {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.calendar-form input {
+  border-radius: 12px;
+  border: 2px solid #ffd93d;
+  padding: 6px;
+}
+
+.calendar-form button {
+  background: #ffe066;
+  border-radius: 12px;
+  border: 2px dashed #ffb703;
+  padding: 6px 12px;
+}
