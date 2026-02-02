@@ -7,8 +7,8 @@ import "./history.css";
 
 export default function History() {
   const [rows, setRows] = useState([]);
-
-  const today = new Date().toISOString().slice(0, 10);
+  
+const today = new Date().toLocaleDateString("en-CA");
 
   async function fetchHistory() {
     const { data } = await supabase
@@ -36,20 +36,28 @@ export default function History() {
   }, []);
 
   async function resetToday() {
-    if (!confirm("Sigur vrei să ștergi toate vizitele de azi?")) return;
+  if (!confirm("Sigur vrei să ștergi toate vizitele de azi?")) return;
 
-    const { error } = await supabase
-      .from("visits")
-      .delete()
-      .eq("date", today);
+  const start = new Date();
+  start.setHours(0, 0, 0, 0);
 
-    if (error) {
-      alert(error.message);
-      return;
-    }
+  const end = new Date();
+  end.setHours(23, 59, 59, 999);
 
-    alert("Ziua a fost resetată.");
+  const { error } = await supabase
+    .from("visits")
+    .delete()
+    .gte("date", start.toISOString())
+    .lte("date", end.toISOString());
+
+  if (error) {
+    alert(error.message);
+    return;
   }
+
+  alert("Ziua a fost resetată.");
+}
+
 
   function exportExcel() {
     const data = rows.map(r => ({
