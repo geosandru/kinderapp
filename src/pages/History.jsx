@@ -35,7 +35,7 @@ export default function History() {
     return () => supabase.removeChannel(channel);
   }, []);
 
-  async function resetDay() {{
+  async function resetToday() {{
   const today = new Date().toISOString().slice(0, 10);
 
   if (!confirm("Sigur vrei să resetezi ziua? Se va șterge istoricul de azi.")) return;
