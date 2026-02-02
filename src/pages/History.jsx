@@ -35,23 +35,19 @@ export default function History() {
     return () => supabase.removeChannel(channel);
   }, []);
 
-  async function resetToday() {{
-  const today = new Date().toISOString().slice(0, 10);
+  async function resetToday() {
+    if (!confirm("Sigur vrei să ștergi toate vizitele de azi?")) return;
 
-  if (!confirm("Sigur vrei să resetezi ziua? Se va șterge istoricul de azi.")) return;
+    const { error } = await supabase
+      .from("visits")
+      .delete()
+      .eq("date", today);
 
-  const { error } = await supabase
-    .from("visits")
-    .delete()
-    .eq("date", today);
+    if (error) {
+      alert(error.message);
+      return;
+    }
 
-  if (error) {
-    alert(error.message);
-    return;
-  }
-
-  fetchHistory(); // reîncarcă tabelul
-}
     alert("Ziua a fost resetată.");
   }
 
