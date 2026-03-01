@@ -26,12 +26,12 @@ export default function ChildrenSidebar({ onClose }) {
   /* ================= FETCH CHILDREN ================= */
 
   async function fetchChildren() {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from("children")
       .select("*")
       .order("name");
 
-    if (!error) setChildren(data || []);
+    setChildren(data || []);
   }
 
   /* ================= FETCH ACTIVE VISITS ================= */
@@ -89,20 +89,28 @@ export default function ChildrenSidebar({ onClose }) {
 
   /* ================= VISIT ACTIONS ================= */
 
-  async function startVisit(child) {
+  async function startVisit(child, type) {
     const nowISO = new Date().toISOString();
     const today = nowISO.slice(0, 10);
 
-    const { error } = await supabase.from("visits").insert({
+    let price = 0;
+    let maxMinutes = null;
+
+    if (type === "double") {
+      price = 100;
+      maxMinutes = 180;
+    }
+
+    await supabase.from("visits").insert({
       child_id: child.id,
       start_time: nowISO,
       end_time: null,
       minutes: 0,
-      price: 0,
-      date: today
+      price,
+      date: today,
+      session_type: type,
+      max_minutes: maxMinutes
     });
-
-    if (error) alert(error.message);
   }
 
   async function stopVisit(visitId) {
@@ -182,8 +190,17 @@ export default function ChildrenSidebar({ onClose }) {
                 const seconds = Math.floor(
                   (now - new Date(active.start_time)) / 1000
                 );
+
                 minutes = Math.floor(seconds / 60);
-                percent = Math.min((minutes / 120) * 100, 100);
+
+                if (active.max_minutes && minutes >= active.max_minutes) {
+                  stopVisit(active.id);
+                  minutes = active.max_minutes;
+                }
+
+                percent = active.max_minutes
+                  ? Math.min((minutes / active.max_minutes) * 100, 100)
+                  : Math.min((minutes / 180) * 100, 100);
               }
 
               return (
@@ -241,6 +258,17 @@ export default function ChildrenSidebar({ onClose }) {
           </tbody>
         </table>
 
+        {selectedChild && (
+          <SessionTypeModal
+            child={selectedChild}
+            onSelect={(type) => {
+              startVisit(selectedChild, type);
+              setSelectedChild(null);
+            }}
+            onClose={() => setSelectedChild(null)}
+          />
+        )}
+
         {editingChild && (
           <EditChildModal
             child={editingChild}
@@ -248,6 +276,7 @@ export default function ChildrenSidebar({ onClose }) {
             onSaved={fetchChildren}
           />
         )}
+
       </div>
     </div>
   );
