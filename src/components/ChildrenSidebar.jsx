@@ -101,11 +101,24 @@ export default function ChildrenSidebar({ onClose }) {
     });
   }
 
-  async function stopVisit(visitId) {
+  async function stopVisit(visit) {
+    const endTime = new Date();
+    const startTime = new Date(visit.start_time);
+
+    const diffMs = endTime - startTime;
+    const minutes = Math.floor(diffMs / 60000);
+
+    const pricePerMinute = 50 / 60; // modifică dacă ora nu e 50 lei
+    const price = Math.round(minutes * pricePerMinute);
+
     await supabase
       .from("visits")
-      .update({ end_time: new Date().toISOString() })
-      .eq("id", visitId);
+      .update({
+        end_time: endTime.toISOString(),
+        minutes,
+        price
+      })
+      .eq("id", visit.id);
   }
 
   /* ================= CRUD ================= */
@@ -202,7 +215,7 @@ export default function ChildrenSidebar({ onClose }) {
                         <span>{minutes} min</span>
                         <button
                           className="icon-btn"
-                          onClick={() => stopVisit(active.id)}
+                          onClick={() => stopVisit(active)}
                         >
                           <FaStop />
                         </button>
