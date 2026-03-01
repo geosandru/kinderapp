@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { supabase } from "../api/supabase";
+import SessionTypeModal from "./SessionTypeModal";
 import {
   FaTrash,
   FaEdit,
@@ -20,6 +21,7 @@ export default function ChildrenSidebar({ onClose }) {
   const [editingChild, setEditingChild] = useState(null);
   const [query, setQuery] = useState("");
   const [now, setNow] = useState(Date.now());
+  const [selectedChild, setSelectedChild] = useState(null);
 
   /* ================= FETCH CHILDREN ================= */
 
