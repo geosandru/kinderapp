@@ -23,24 +23,14 @@ export default function ChildrenSidebar({ onClose }) {
 
   /* ================= FETCH CHILDREN ================= */
 
-  async function startVisit(child) {
-  const now = new Date().toISOString();
-  const today = now.slice(0, 10);
+  async function fetchChildren() {
+    const { data, error } = await supabase
+      .from("children")
+      .select("*")
+      .order("name");
 
-  const { error } = await supabase.from("visits").insert({
-    child_id: child.id,
-    start_time: now,
-    end_time: null,
-    minutes: 0,
-    price: 0,
-    date: today
-  });
-
-  if (error) {
-    alert(error.message);
-    return;
+    if (!error) setChildren(data || []);
   }
-}
 
   /* ================= FETCH ACTIVE VISITS ================= */
 
@@ -71,7 +61,7 @@ export default function ChildrenSidebar({ onClose }) {
     return () => supabase.removeChannel(channel);
   }, []);
 
-  /* ================= CLOCK RERENDER ================= */
+  /* ================= CLOCK ================= */
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -95,19 +85,22 @@ export default function ChildrenSidebar({ onClose }) {
     );
   }, [query, children]);
 
-  /* ================= CRUD ================= */
+  /* ================= VISIT ACTIONS ================= */
 
-  async function deleteChild(id) {
-    if (!confirm("Sigur vrei să ștergi copilul?")) return;
-    await supabase.from("children").delete().eq("id", id);
-    fetchChildren();
-  }
+  async function startVisit(child) {
+    const nowISO = new Date().toISOString();
+    const today = nowISO.slice(0, 10);
 
-  async function startVisit(childId) {
-    await supabase.from("visits").insert({
-      child_id: childId,
-      start_time: new Date().toISOString()
+    const { error } = await supabase.from("visits").insert({
+      child_id: child.id,
+      start_time: nowISO,
+      end_time: null,
+      minutes: 0,
+      price: 0,
+      date: today
     });
+
+    if (error) alert(error.message);
   }
 
   async function stopVisit(visitId) {
@@ -115,6 +108,14 @@ export default function ChildrenSidebar({ onClose }) {
       .from("visits")
       .update({ end_time: new Date().toISOString() })
       .eq("id", visitId);
+  }
+
+  /* ================= CRUD ================= */
+
+  async function deleteChild(id) {
+    if (!confirm("Sigur vrei să ștergi copilul?")) return;
+    await supabase.from("children").delete().eq("id", id);
+    fetchChildren();
   }
 
   /* ================= EXPORT ================= */
@@ -152,7 +153,7 @@ export default function ChildrenSidebar({ onClose }) {
           <input
             value={query}
             onChange={e => setQuery(e.target.value)}
-            placeholder="Caută copil, părinte sau telefon..."
+            placeholder="Caută copil..."
           />
         </div>
 
@@ -179,7 +180,6 @@ export default function ChildrenSidebar({ onClose }) {
                 const seconds = Math.floor(
                   (now - new Date(active.start_time)) / 1000
                 );
-
                 minutes = Math.floor(seconds / 60);
                 percent = Math.min((minutes / 120) * 100, 100);
               }
