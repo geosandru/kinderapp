@@ -1,6 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
 import { supabase } from "../api/supabase";
-import SessionTypeModal from "./SessionTypeModal";
 import {
   FaTrash,
   FaEdit,
@@ -21,17 +20,16 @@ export default function ChildrenSidebar({ onClose }) {
   const [editingChild, setEditingChild] = useState(null);
   const [query, setQuery] = useState("");
   const [now, setNow] = useState(Date.now());
-  const [selectedChild, setSelectedChild] = useState(null);
 
   /* ================= FETCH CHILDREN ================= */
 
   async function fetchChildren() {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("children")
       .select("*")
       .order("name");
 
-    setChildren(data || []);
+    if (!error) setChildren(data || []);
   }
 
   /* ================= FETCH ACTIVE VISITS ================= */
@@ -89,28 +87,20 @@ export default function ChildrenSidebar({ onClose }) {
 
   /* ================= VISIT ACTIONS ================= */
 
-  async function startVisit(child, type) {
+  async function startVisit(child) {
     const nowISO = new Date().toISOString();
     const today = nowISO.slice(0, 10);
 
-    let price = 0;
-    let maxMinutes = null;
-
-    if (type === "double") {
-      price = 100;
-      maxMinutes = 180;
-    }
-
-    await supabase.from("visits").insert({
+    const { error } = await supabase.from("visits").insert({
       child_id: child.id,
       start_time: nowISO,
       end_time: null,
       minutes: 0,
-      price,
-      date: today,
-      session_type: type,
-      max_minutes: maxMinutes
+      price: 0,
+      date: today
     });
+
+    if (error) alert(error.message);
   }
 
   async function stopVisit(visitId) {
@@ -190,17 +180,8 @@ export default function ChildrenSidebar({ onClose }) {
                 const seconds = Math.floor(
                   (now - new Date(active.start_time)) / 1000
                 );
-
                 minutes = Math.floor(seconds / 60);
-
-                if (active.max_minutes && minutes >= active.max_minutes) {
-                  stopVisit(active.id);
-                  minutes = active.max_minutes;
-                }
-
-                percent = active.max_minutes
-                  ? Math.min((minutes / active.max_minutes) * 100, 100)
-                  : Math.min((minutes / 180) * 100, 100);
+                percent = Math.min((minutes / 120) * 100, 100);
               }
 
               return (
@@ -230,7 +211,7 @@ export default function ChildrenSidebar({ onClose }) {
                     ) : (
                       <button
                         className="icon-btn"
-                        onClick={() => setSelectedChild(child)}
+                        onClick={() => startVisit(child)}
                       >
                         <FaPlay />
                       </button>
@@ -258,17 +239,6 @@ export default function ChildrenSidebar({ onClose }) {
           </tbody>
         </table>
 
-        {selectedChild && (
-          <SessionTypeModal
-            child={selectedChild}
-            onSelect={(type) => {
-              startVisit(selectedChild, type);
-              setSelectedChild(null);
-            }}
-            onClose={() => setSelectedChild(null)}
-          />
-        )}
-
         {editingChild && (
           <EditChildModal
             child={editingChild}
@@ -276,7 +246,6 @@ export default function ChildrenSidebar({ onClose }) {
             onSaved={fetchChildren}
           />
         )}
-
       </div>
     </div>
   );
