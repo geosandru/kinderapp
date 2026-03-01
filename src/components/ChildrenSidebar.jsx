@@ -211,7 +211,7 @@ export default function ChildrenSidebar({ onClose }) {
                     ) : (
                       <button
                         className="icon-btn"
-                        onClick={() => startVisit(child.id)}
+                        onClick={() => startVisit(child)}
                       >
                         <FaPlay />
                       </button>
