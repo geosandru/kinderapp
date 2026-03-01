@@ -23,14 +23,24 @@ export default function ChildrenSidebar({ onClose }) {
 
   /* ================= FETCH CHILDREN ================= */
 
-  async function fetchChildren() {
-    const { data, error } = await supabase
-      .from("children")
-      .select("*")
-      .order("name");
+  async function startVisit(child) {
+  const now = new Date().toISOString();
+  const today = now.slice(0, 10);
 
-    if (!error) setChildren(data || []);
+  const { error } = await supabase.from("visits").insert({
+    child_id: child.id,
+    start_time: now,
+    end_time: null,
+    minutes: 0,
+    price: 0,
+    date: today
+  });
+
+  if (error) {
+    alert(error.message);
+    return;
   }
+}
 
   /* ================= FETCH ACTIVE VISITS ================= */
 
